@@ -1,7 +1,7 @@
 package com.devsuperior.dspedidos.services;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
 import com.devsuperior.dspedidos.entities.Order;
@@ -9,8 +9,6 @@ import com.devsuperior.dspedidos.entities.Order;
 @Service
 public class ShippingService {
 	
-	@Autowired
-	OrderService orderService;
 	
 	//Constructor
 	
@@ -20,22 +18,22 @@ public class ShippingService {
 
 	//Método
 	
-	public double shipment(Order order) {
+	public double shipment(Order order) {		
 		
-		//double result = 0;
-
-		double	result = orderService.total(order);
+		double	result = 0;
 		
-		if (result < 100) {
+		if (order.getBasic() < 100) {
 			
-			result += 20;
+			result = order.getBasic() + 20;
 			 
-		} else if(result >= 100 && result  < 200) {
+		} else if(order.getBasic() > 99 && order.getBasic()  < 200) {
 			
-			result += 12;
+			result = order.getBasic() + 12;
 			
+		}else {
+			result = order.getBasic();
 		}
 		
-		return result;
+		return result ;
 	}
 }
